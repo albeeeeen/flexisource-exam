@@ -24,4 +24,5 @@ class ApiConstants
     public const NATIONALITY = 'nat';
     public const INCLUDING = 'inc';
     public const ERROR = 'error';
+    public const MESSAGE = 'message';
 }

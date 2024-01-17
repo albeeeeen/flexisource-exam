@@ -26,6 +26,11 @@ class CustomerRepository
     private $entityManager;
 
     /**
+     * Class entity repository
+     */
+    private $entityRepository;
+
+    /**
      * Customer repository constructor
      *
      * @param EntityManagerInterface $entityManager
@@ -33,6 +38,7 @@ class CustomerRepository
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->entityRepository = $entityManager->getRepository($this->entityName);
     }
 
     /**
@@ -44,7 +50,7 @@ class CustomerRepository
     public function createOrUpdateCustomer(array $customers): void
     {
         foreach ($customers as $customer) {
-            $customerEntity = $this->entityManager->getRepository($this->entityName)->findOneBy(['email' => $customer['email']]);
+            $customerEntity = $this->entityRepository->findOneBy(['email' => $customer['email']]);
 
             if (!$customerEntity) {
                 $customerEntity = new Customer();
@@ -67,5 +73,37 @@ class CustomerRepository
         }
 
         $this->entityManager->flush();
+    }
+
+    /**
+     * get all customers in database
+     * @return array
+     */
+    public function getAllCustomer(): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('c.first_name', 'c.last_name', 'c.email', 'c.country')
+            ->from($this->entityName, 'c');
+            
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getCustomerById(int $customerId): array
+    {
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select(
+            'c.first_name', 
+            'c.last_name', 
+            'c.email',
+            'c.username',
+            'c.gender',
+            'c.country',
+            'c.city',
+            'c.phone'
+        )->from($this->entityName, 'c')
+            ->where('c.id = ' . $customerId);
+            
+        $result = $queryBuilder->getQuery()->getResult();
+        return $result ? $result[0] : [];
     }
 }
