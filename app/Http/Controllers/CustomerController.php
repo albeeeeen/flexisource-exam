@@ -13,7 +13,7 @@ use App\Transformers\Customer\GetCustomerDetailTransformer;
 
 /** 
  * Class CustomerController
- * @Author: Alvin Dela Cruz 
+ * @Author: Alvin Dela Cruz <delacruzalvinstaana@gmail.com>
  * @Date: 2024-01-18 
  */
 class CustomerController extends BaseController
@@ -38,7 +38,7 @@ class CustomerController extends BaseController
      */
     public function getAllCustomer(): JsonResponse
     {
-        $customers = $this->customerRepository->getAllCustomer();
+        $customers = $this->customerRepository->getAllCustomer(); 
         $transformedData = (new GetAllCustomersTransformer())->transform($customers);
 
         return response()->json($transformedData);

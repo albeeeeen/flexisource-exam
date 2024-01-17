@@ -61,6 +61,9 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('importer');
+$app->configure('cache');
+$app->configure('database');
+$app->configure('doctrine');
 
 /*
 |--------------------------------------------------------------------------
