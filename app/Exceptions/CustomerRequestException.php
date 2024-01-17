@@ -17,7 +17,7 @@ class CustomerRequestException extends Exception
      * @param string $message
      * @param integer $code
      */
-    public function __construct(int $code = 500, string $message = '', )
+    public function __construct(int $code = 500, string $message = '')
     {
         parent::__construct($message, $code);
     }

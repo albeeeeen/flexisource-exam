@@ -6,6 +6,11 @@ use App\Constants\ApiConstants;
 use Illuminate\Http\JsonResponse;
 use Laravel\Lumen\Routing\Controller;
 
+/** 
+ * Class BaseController
+ * @Author: Alvin Dela Cruz <delacruzalvinstaana@gmail.com> 
+ * @Date: 2024-01-18 
+ */
 class BaseController extends Controller
 {
     /**
